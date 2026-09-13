@@ -21,6 +21,7 @@
     min-height:100dvh;
   }
   a { color:inherit; text-decoration:none; }
+  button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; text-align:left; }
   .wrap { max-width:1080px; margin:0 auto; padding:0 24px 80px; }
   header {
     display:flex; justify-content:space-between; align-items:center;
@@ -56,7 +57,7 @@
     font-size:11px; letter-spacing:.16em; text-transform:uppercase;
   }
   .pill.live { color:var(--ice); border-color:rgba(255,255,255,.22); }
-  .pill.live:hover { background:rgba(255,255,255,.06); }
+  a.pill.live:hover { background:rgba(255,255,255,.06); }
   .section-head {
     display:flex; justify-content:space-between; align-items:baseline;
     gap:12px; margin:48px 0 20px; padding-top:20px;
@@ -73,11 +74,14 @@
   }
   .card {
     background:var(--panel); border:1px solid var(--line);
-    border-radius:18px; overflow:hidden; display:block;
+    border-radius:18px; overflow:hidden; display:block; width:100%;
     transition:border-color 140ms ease, transform 140ms ease;
   }
   .card:hover { border-color:rgba(255,255,255,.28); transform:translateY(-3px); }
-  .card img { width:100%; aspect-ratio:1; object-fit:cover; object-position:center center; display:block; }
+  .card:focus-visible { outline:2px solid rgba(255,255,255,.45); outline-offset:3px; }
+  .card img {
+    width:100%; aspect-ratio:1; object-fit:cover; object-position:center center; display:block;
+  }
   .card span {
     display:block; padding:12px 14px 14px; color:var(--mute);
     font-size:12px; letter-spacing:.14em;
@@ -87,6 +91,35 @@
     display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
     color:var(--mute); font-size:11px; letter-spacing:.18em; text-transform:uppercase;
   }
+  .lightbox {
+    position:fixed; inset:0; z-index:80;
+    display:none; align-items:center; justify-content:center;
+    padding:24px; background:rgba(5,7,12,.88);
+    backdrop-filter:blur(8px);
+  }
+  .lightbox.open { display:flex; }
+  .lightbox figure {
+    margin:0; max-width:min(92vw, 880px); max-height:92vh;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+  }
+  .lightbox img {
+    display:block; width:min(92vw, 880px); height:min(82vh, 880px);
+    object-fit:contain; object-position:center center;
+    border-radius:18px; background:var(--panel);
+    border:1px solid var(--line);
+    box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+  .lightbox figcaption {
+    color:var(--mute); font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+  }
+  .lightbox-close {
+    position:fixed; top:18px; right:18px; z-index:81;
+    width:42px; height:42px; border-radius:999px;
+    border:1px solid rgba(255,255,255,.2); color:var(--ice);
+    background:rgba(9,11,16,.55);
+  }
+  .lightbox-close:hover { background:rgba(255,255,255,.1); }
+  body.lb-open { overflow:hidden; }
   @media (max-width:640px) {
     .wrap { padding:0 16px 64px; }
     .grid { grid-template-columns:repeat(2,1fr); gap:14px; }
@@ -121,206 +154,206 @@
       <p>50 portraits</p>
     </div>
     <section class="grid" aria-label="Moon Machines gallery">
-      <a class="card" href="collection-50/mm-01.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-01.png" alt="Moon Machine 01" loading="lazy" width="480" height="480">
+      <button class="card" type="button" data-full="collection-50/mm-01.png" data-alt="Moon Machine 01" aria-label="Open Moon Machine 01">
+        <img src="collection-50/mm-01.png" alt="Moon Machine 01" loading="lazy" width="1024" height="1024">
         <span>#01</span>
-      </a>
-      <a class="card" href="collection-50/mm-02.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-02.png" alt="Moon Machine 02" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-02.png" data-alt="Moon Machine 02" aria-label="Open Moon Machine 02">
+        <img src="collection-50/mm-02.png" alt="Moon Machine 02" loading="lazy" width="1024" height="1024">
         <span>#02</span>
-      </a>
-      <a class="card" href="collection-50/mm-03.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-03.png" alt="Moon Machine 03" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-03.png" data-alt="Moon Machine 03" aria-label="Open Moon Machine 03">
+        <img src="collection-50/mm-03.png" alt="Moon Machine 03" loading="lazy" width="1024" height="1024">
         <span>#03</span>
-      </a>
-      <a class="card" href="collection-50/mm-04.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-04.png" alt="Moon Machine 04" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-04.png" data-alt="Moon Machine 04" aria-label="Open Moon Machine 04">
+        <img src="collection-50/mm-04.png" alt="Moon Machine 04" loading="lazy" width="1024" height="1024">
         <span>#04</span>
-      </a>
-      <a class="card" href="collection-50/mm-05.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-05.png" alt="Moon Machine 05" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-05.png" data-alt="Moon Machine 05" aria-label="Open Moon Machine 05">
+        <img src="collection-50/mm-05.png" alt="Moon Machine 05" loading="lazy" width="1024" height="1024">
         <span>#05</span>
-      </a>
-      <a class="card" href="collection-50/mm-06.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-06.png" alt="Moon Machine 06" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-06.png" data-alt="Moon Machine 06" aria-label="Open Moon Machine 06">
+        <img src="collection-50/mm-06.png" alt="Moon Machine 06" loading="lazy" width="1024" height="1024">
         <span>#06</span>
-      </a>
-      <a class="card" href="collection-50/mm-07.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-07.png" alt="Moon Machine 07" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-07.png" data-alt="Moon Machine 07" aria-label="Open Moon Machine 07">
+        <img src="collection-50/mm-07.png" alt="Moon Machine 07" loading="lazy" width="1024" height="1024">
         <span>#07</span>
-      </a>
-      <a class="card" href="collection-50/mm-08.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-08.png" alt="Moon Machine 08" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-08.png" data-alt="Moon Machine 08" aria-label="Open Moon Machine 08">
+        <img src="collection-50/mm-08.png" alt="Moon Machine 08" loading="lazy" width="1024" height="1024">
         <span>#08</span>
-      </a>
-      <a class="card" href="collection-50/mm-09.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-09.png" alt="Moon Machine 09" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-09.png" data-alt="Moon Machine 09" aria-label="Open Moon Machine 09">
+        <img src="collection-50/mm-09.png" alt="Moon Machine 09" loading="lazy" width="1024" height="1024">
         <span>#09</span>
-      </a>
-      <a class="card" href="collection-50/mm-10.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-10.png" alt="Moon Machine 10" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-10.png" data-alt="Moon Machine 10" aria-label="Open Moon Machine 10">
+        <img src="collection-50/mm-10.png" alt="Moon Machine 10" loading="lazy" width="1024" height="1024">
         <span>#10</span>
-      </a>
-      <a class="card" href="collection-50/mm-11.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-11.png" alt="Moon Machine 11" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-11.png" data-alt="Moon Machine 11" aria-label="Open Moon Machine 11">
+        <img src="collection-50/mm-11.png" alt="Moon Machine 11" loading="lazy" width="1024" height="1024">
         <span>#11</span>
-      </a>
-      <a class="card" href="collection-50/mm-12.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-12.png" alt="Moon Machine 12" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-12.png" data-alt="Moon Machine 12" aria-label="Open Moon Machine 12">
+        <img src="collection-50/mm-12.png" alt="Moon Machine 12" loading="lazy" width="1024" height="1024">
         <span>#12</span>
-      </a>
-      <a class="card" href="collection-50/mm-13.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-13.png" alt="Moon Machine 13" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-13.png" data-alt="Moon Machine 13" aria-label="Open Moon Machine 13">
+        <img src="collection-50/mm-13.png" alt="Moon Machine 13" loading="lazy" width="1024" height="1024">
         <span>#13</span>
-      </a>
-      <a class="card" href="collection-50/mm-14.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-14.png" alt="Moon Machine 14" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-14.png" data-alt="Moon Machine 14" aria-label="Open Moon Machine 14">
+        <img src="collection-50/mm-14.png" alt="Moon Machine 14" loading="lazy" width="1024" height="1024">
         <span>#14</span>
-      </a>
-      <a class="card" href="collection-50/mm-15.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-15.png" alt="Moon Machine 15" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-15.png" data-alt="Moon Machine 15" aria-label="Open Moon Machine 15">
+        <img src="collection-50/mm-15.png" alt="Moon Machine 15" loading="lazy" width="1024" height="1024">
         <span>#15</span>
-      </a>
-      <a class="card" href="collection-50/mm-16.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-16.png" alt="Moon Machine 16" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-16.png" data-alt="Moon Machine 16" aria-label="Open Moon Machine 16">
+        <img src="collection-50/mm-16.png" alt="Moon Machine 16" loading="lazy" width="1024" height="1024">
         <span>#16</span>
-      </a>
-      <a class="card" href="collection-50/mm-17.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-17.png" alt="Moon Machine 17" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-17.png" data-alt="Moon Machine 17" aria-label="Open Moon Machine 17">
+        <img src="collection-50/mm-17.png" alt="Moon Machine 17" loading="lazy" width="1024" height="1024">
         <span>#17</span>
-      </a>
-      <a class="card" href="collection-50/mm-18.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-18.png" alt="Moon Machine 18" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-18.png" data-alt="Moon Machine 18" aria-label="Open Moon Machine 18">
+        <img src="collection-50/mm-18.png" alt="Moon Machine 18" loading="lazy" width="1024" height="1024">
         <span>#18</span>
-      </a>
-      <a class="card" href="collection-50/mm-19.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-19.png" alt="Moon Machine 19" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-19.png" data-alt="Moon Machine 19" aria-label="Open Moon Machine 19">
+        <img src="collection-50/mm-19.png" alt="Moon Machine 19" loading="lazy" width="1024" height="1024">
         <span>#19</span>
-      </a>
-      <a class="card" href="collection-50/mm-20.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-20.png" alt="Moon Machine 20" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-20.png" data-alt="Moon Machine 20" aria-label="Open Moon Machine 20">
+        <img src="collection-50/mm-20.png" alt="Moon Machine 20" loading="lazy" width="1024" height="1024">
         <span>#20</span>
-      </a>
-      <a class="card" href="collection-50/mm-21.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-21.png" alt="Moon Machine 21" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-21.png" data-alt="Moon Machine 21" aria-label="Open Moon Machine 21">
+        <img src="collection-50/mm-21.png" alt="Moon Machine 21" loading="lazy" width="1024" height="1024">
         <span>#21</span>
-      </a>
-      <a class="card" href="collection-50/mm-22.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-22.png" alt="Moon Machine 22" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-22.png" data-alt="Moon Machine 22" aria-label="Open Moon Machine 22">
+        <img src="collection-50/mm-22.png" alt="Moon Machine 22" loading="lazy" width="1024" height="1024">
         <span>#22</span>
-      </a>
-      <a class="card" href="collection-50/mm-23.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-23.png" alt="Moon Machine 23" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-23.png" data-alt="Moon Machine 23" aria-label="Open Moon Machine 23">
+        <img src="collection-50/mm-23.png" alt="Moon Machine 23" loading="lazy" width="1024" height="1024">
         <span>#23</span>
-      </a>
-      <a class="card" href="collection-50/mm-24.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-24.png" alt="Moon Machine 24" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-24.png" data-alt="Moon Machine 24" aria-label="Open Moon Machine 24">
+        <img src="collection-50/mm-24.png" alt="Moon Machine 24" loading="lazy" width="1024" height="1024">
         <span>#24</span>
-      </a>
-      <a class="card" href="collection-50/mm-25.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-25.png" alt="Moon Machine 25" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-25.png" data-alt="Moon Machine 25" aria-label="Open Moon Machine 25">
+        <img src="collection-50/mm-25.png" alt="Moon Machine 25" loading="lazy" width="1024" height="1024">
         <span>#25</span>
-      </a>
-      <a class="card" href="collection-50/mm-26.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-26.png" alt="Moon Machine 26" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-26.png" data-alt="Moon Machine 26" aria-label="Open Moon Machine 26">
+        <img src="collection-50/mm-26.png" alt="Moon Machine 26" loading="lazy" width="1024" height="1024">
         <span>#26</span>
-      </a>
-      <a class="card" href="collection-50/mm-27.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-27.png" alt="Moon Machine 27" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-27.png" data-alt="Moon Machine 27" aria-label="Open Moon Machine 27">
+        <img src="collection-50/mm-27.png" alt="Moon Machine 27" loading="lazy" width="1024" height="1024">
         <span>#27</span>
-      </a>
-      <a class="card" href="collection-50/mm-28.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-28.png" alt="Moon Machine 28" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-28.png" data-alt="Moon Machine 28" aria-label="Open Moon Machine 28">
+        <img src="collection-50/mm-28.png" alt="Moon Machine 28" loading="lazy" width="1024" height="1024">
         <span>#28</span>
-      </a>
-      <a class="card" href="collection-50/mm-29.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-29.png" alt="Moon Machine 29" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-29.png" data-alt="Moon Machine 29" aria-label="Open Moon Machine 29">
+        <img src="collection-50/mm-29.png" alt="Moon Machine 29" loading="lazy" width="1024" height="1024">
         <span>#29</span>
-      </a>
-      <a class="card" href="collection-50/mm-30.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-30.png" alt="Moon Machine 30" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-30.png" data-alt="Moon Machine 30" aria-label="Open Moon Machine 30">
+        <img src="collection-50/mm-30.png" alt="Moon Machine 30" loading="lazy" width="1024" height="1024">
         <span>#30</span>
-      </a>
-      <a class="card" href="collection-50/mm-31.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-31.png" alt="Moon Machine 31" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-31.png" data-alt="Moon Machine 31" aria-label="Open Moon Machine 31">
+        <img src="collection-50/mm-31.png" alt="Moon Machine 31" loading="lazy" width="1024" height="1024">
         <span>#31</span>
-      </a>
-      <a class="card" href="collection-50/mm-32.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-32.png" alt="Moon Machine 32" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-32.png" data-alt="Moon Machine 32" aria-label="Open Moon Machine 32">
+        <img src="collection-50/mm-32.png" alt="Moon Machine 32" loading="lazy" width="1024" height="1024">
         <span>#32</span>
-      </a>
-      <a class="card" href="collection-50/mm-33.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-33.png" alt="Moon Machine 33" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-33.png" data-alt="Moon Machine 33" aria-label="Open Moon Machine 33">
+        <img src="collection-50/mm-33.png" alt="Moon Machine 33" loading="lazy" width="1024" height="1024">
         <span>#33</span>
-      </a>
-      <a class="card" href="collection-50/mm-34.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-34.png" alt="Moon Machine 34" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-34.png" data-alt="Moon Machine 34" aria-label="Open Moon Machine 34">
+        <img src="collection-50/mm-34.png" alt="Moon Machine 34" loading="lazy" width="1024" height="1024">
         <span>#34</span>
-      </a>
-      <a class="card" href="collection-50/mm-35.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-35.png" alt="Moon Machine 35" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-35.png" data-alt="Moon Machine 35" aria-label="Open Moon Machine 35">
+        <img src="collection-50/mm-35.png" alt="Moon Machine 35" loading="lazy" width="1024" height="1024">
         <span>#35</span>
-      </a>
-      <a class="card" href="collection-50/mm-36.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-36.png" alt="Moon Machine 36" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-36.png" data-alt="Moon Machine 36" aria-label="Open Moon Machine 36">
+        <img src="collection-50/mm-36.png" alt="Moon Machine 36" loading="lazy" width="1024" height="1024">
         <span>#36</span>
-      </a>
-      <a class="card" href="collection-50/mm-37.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-37.png" alt="Moon Machine 37" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-37.png" data-alt="Moon Machine 37" aria-label="Open Moon Machine 37">
+        <img src="collection-50/mm-37.png" alt="Moon Machine 37" loading="lazy" width="1024" height="1024">
         <span>#37</span>
-      </a>
-      <a class="card" href="collection-50/mm-38.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-38.png" alt="Moon Machine 38" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-38.png" data-alt="Moon Machine 38" aria-label="Open Moon Machine 38">
+        <img src="collection-50/mm-38.png" alt="Moon Machine 38" loading="lazy" width="1024" height="1024">
         <span>#38</span>
-      </a>
-      <a class="card" href="collection-50/mm-39.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-39.png" alt="Moon Machine 39" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-39.png" data-alt="Moon Machine 39" aria-label="Open Moon Machine 39">
+        <img src="collection-50/mm-39.png" alt="Moon Machine 39" loading="lazy" width="1024" height="1024">
         <span>#39</span>
-      </a>
-      <a class="card" href="collection-50/mm-40.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-40.png" alt="Moon Machine 40" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-40.png" data-alt="Moon Machine 40" aria-label="Open Moon Machine 40">
+        <img src="collection-50/mm-40.png" alt="Moon Machine 40" loading="lazy" width="1024" height="1024">
         <span>#40</span>
-      </a>
-      <a class="card" href="collection-50/mm-41.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-41.png" alt="Moon Machine 41" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-41.png" data-alt="Moon Machine 41" aria-label="Open Moon Machine 41">
+        <img src="collection-50/mm-41.png" alt="Moon Machine 41" loading="lazy" width="1024" height="1024">
         <span>#41</span>
-      </a>
-      <a class="card" href="collection-50/mm-42.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-42.png" alt="Moon Machine 42" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-42.png" data-alt="Moon Machine 42" aria-label="Open Moon Machine 42">
+        <img src="collection-50/mm-42.png" alt="Moon Machine 42" loading="lazy" width="1024" height="1024">
         <span>#42</span>
-      </a>
-      <a class="card" href="collection-50/mm-43.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-43.png" alt="Moon Machine 43" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-43.png" data-alt="Moon Machine 43" aria-label="Open Moon Machine 43">
+        <img src="collection-50/mm-43.png" alt="Moon Machine 43" loading="lazy" width="1024" height="1024">
         <span>#43</span>
-      </a>
-      <a class="card" href="collection-50/mm-44.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-44.png" alt="Moon Machine 44" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-44.png" data-alt="Moon Machine 44" aria-label="Open Moon Machine 44">
+        <img src="collection-50/mm-44.png" alt="Moon Machine 44" loading="lazy" width="1024" height="1024">
         <span>#44</span>
-      </a>
-      <a class="card" href="collection-50/mm-45.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-45.png" alt="Moon Machine 45" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-45.png" data-alt="Moon Machine 45" aria-label="Open Moon Machine 45">
+        <img src="collection-50/mm-45.png" alt="Moon Machine 45" loading="lazy" width="1024" height="1024">
         <span>#45</span>
-      </a>
-      <a class="card" href="collection-50/mm-46.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-46.png" alt="Moon Machine 46" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-46.png" data-alt="Moon Machine 46" aria-label="Open Moon Machine 46">
+        <img src="collection-50/mm-46.png" alt="Moon Machine 46" loading="lazy" width="1024" height="1024">
         <span>#46</span>
-      </a>
-      <a class="card" href="collection-50/mm-47.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-47.png" alt="Moon Machine 47" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-47.png" data-alt="Moon Machine 47" aria-label="Open Moon Machine 47">
+        <img src="collection-50/mm-47.png" alt="Moon Machine 47" loading="lazy" width="1024" height="1024">
         <span>#47</span>
-      </a>
-      <a class="card" href="collection-50/mm-48.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-48.png" alt="Moon Machine 48" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-48.png" data-alt="Moon Machine 48" aria-label="Open Moon Machine 48">
+        <img src="collection-50/mm-48.png" alt="Moon Machine 48" loading="lazy" width="1024" height="1024">
         <span>#48</span>
-      </a>
-      <a class="card" href="collection-50/mm-49.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-49.png" alt="Moon Machine 49" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-49.png" data-alt="Moon Machine 49" aria-label="Open Moon Machine 49">
+        <img src="collection-50/mm-49.png" alt="Moon Machine 49" loading="lazy" width="1024" height="1024">
         <span>#49</span>
-      </a>
-      <a class="card" href="collection-50/mm-50.png" target="_blank" rel="noopener">
-        <img src="collection-50/mm-50.png" alt="Moon Machine 50" loading="lazy" width="480" height="480">
+      </button>
+      <button class="card" type="button" data-full="collection-50/mm-50.png" data-alt="Moon Machine 50" aria-label="Open Moon Machine 50">
+        <img src="collection-50/mm-50.png" alt="Moon Machine 50" loading="lazy" width="1024" height="1024">
         <span>#50</span>
-      </a>
+      </button>
     </section>
 
     <footer>
@@ -328,5 +361,51 @@
       <span>Nothing for sale yet</span>
     </footer>
   </div>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox-close" type="button" aria-label="Close">×</button>
+    <figure>
+      <img id="lightbox-img" src="" alt="">
+      <figcaption id="lightbox-cap"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+  (function () {
+    var lb = document.getElementById('lightbox');
+    var img = document.getElementById('lightbox-img');
+    var cap = document.getElementById('lightbox-cap');
+    var closeBtn = lb.querySelector('.lightbox-close');
+
+    function openLb(src, alt) {
+      img.src = src;
+      img.alt = alt || '';
+      cap.textContent = alt || '';
+      lb.hidden = false;
+      lb.classList.add('open');
+      document.body.classList.add('lb-open');
+      closeBtn.focus();
+    }
+    function closeLb() {
+      lb.classList.remove('open');
+      lb.hidden = true;
+      document.body.classList.remove('lb-open');
+      img.removeAttribute('src');
+    }
+
+    document.querySelectorAll('.card[data-full]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        openLb(btn.getAttribute('data-full'), btn.getAttribute('data-alt'));
+      });
+    });
+    closeBtn.addEventListener('click', closeLb);
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLb();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && lb.classList.contains('open')) closeLb();
+    });
+  })();
+  </script>
 </body>
 </html>
